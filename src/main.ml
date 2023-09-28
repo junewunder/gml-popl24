@@ -280,7 +280,7 @@ let _ =
       else
         find_decl_by_id !func c_prog
     in
-    (visualize 4 file d;
+    (visualize 3 file d;
      log "Finished visualization")
 
 let _ = if !timing then print_timers stdout

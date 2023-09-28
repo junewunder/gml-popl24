@@ -769,21 +769,20 @@ let rec t_typ_to_g_typ ?(unit_spawn_params = false) (ty : t_typ) : g_typ grcheck
           let* gr_unif_idx = new_graph_unif_var in
           let* touch_vert = new_vertex_name in
           let* spawn_vert = new_vertex_name in
-          let* spawn_vert_typ = new_vs_typ_unif_var in
           let* vsut_ctx = get_vs_unif_typ_ctx in
           let touch_params = free_vert_unif_vars_ty t1_annot in
           let* (prod_ty, vert_idx_subst) = collect touch_vert touch_params
           in
-          (* let spawn_params = free_vert_unif_vars_ty t2_annot in
+          let spawn_params = free_vert_unif_vars_ty t2_annot in
           let* (spawn_prod_ty, spawn_vert_idx_subst) =
             collect spawn_vert spawn_params
-          in *)
+          in
           let t1_annot = substitute_vs_in_ty vert_idx_subst t1_annot in
-          (* let t2_annot = substitute_vs_in_ty spawn_vert_idx_subst t2_annot in
-           *)
+          let t2_annot = substitute_vs_in_ty spawn_vert_idx_subst t2_annot in
+
           return @@ rebuild (TArrow (
             t1_annot, t2_annot,
-            (spawn_vert, VSTUVar spawn_vert_typ (*spawn_prod_ty*)),
+            (spawn_vert, spawn_prod_ty),
             (touch_vert, prod_ty),
             (GApp (GUVar gr_unif_idx, VSVar spawn_vert, VSVar touch_vert))
           ))
