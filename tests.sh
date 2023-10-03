@@ -1,10 +1,21 @@
 dune build --release
-cp _build/default/src/main.exe ./gml
+
+for file in paper-examples/*; do
+  clear
+  echo running $file
+  echo
+  cat $file
+  _build/default/src/main.exe $file
+  echo press enter to continue
+  read;
+done
 
 for file in testcases/*; do
   clear
   echo running $file
   echo
-  dune exec -- gml $file
+  cat $file
+  _build/default/src/main.exe $file
+  echo press enter to continue
   read;
 done
