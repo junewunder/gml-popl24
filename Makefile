@@ -15,7 +15,7 @@ init:
 	dune build
 
 	echo Running example...
-	dune exec -- gml examples/fib.ml
+	dune exec -- gml paper-examples/map.ml
 
 	echo Done.
 	echo Run "eval \$$(opam env --switch=. --set-switch)" to set up your current shell environment

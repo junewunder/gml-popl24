@@ -16,12 +16,12 @@ dependencies, updates your environment, builds the project, and runs the
 
 Run your example with the following command
 ```
-dune exec -- gml testcases/fib.ml
+dune exec -- gml paper-examples/map.ml
 ```
 
 In the event of an error, enable stack traces using:
 ```
-OCAMLRUNPARAM=b dune exec -- gml testcases/fib.ml
+OCAMLRUNPARAM=b dune exec -- gml paper-examples/map.ml
 ```
 
 To silently run all paper examples and testcases, run `tests-silent.sh`
