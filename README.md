@@ -1,21 +1,29 @@
 # gml checker (graph meta language)
 
+To run the artifact, follow these steps.
 
+## Install and set up OPAM 
 
-## install dependencies
-before trying to run examples, install opam.
+Follow the instructions on [the OPAM website][opam].
 
-next run `init.sh`, this creates an opam switch called "gml", installs all dependencies, updates your current env, builds the project, and runs the `fib.ml` examples
+## Install dependencies
 
-## running examples
-run your example with the following command
+Run `init.sh`.  This script creates an OPAM switch called "gml", installs all
+dependencies, updates your environment, builds the project, and runs the
+`fib.ml` examples.
+
+## Running examples
+
+Run your example with the following command
 ```
 dune exec -- gml examples/fib.ml
 ```
 
-in the event of an error, enable stack traces using:
+In the event of an error, enable stack traces using:
 ```
 OCAMLRUNPARAM=b dune exec -- gml examples/fib.ml
 ```
 
-to run all tests, run `tests.sh`
+To run all tests, run `tests.sh`
+
+  [opam]: https://opam.ocaml.org/doc/install.html
