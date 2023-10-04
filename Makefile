@@ -24,5 +24,4 @@ init:
 clean:
 	rm -rf ./_build
 	rm -rf ./_opam
-	rm gml.install
 
