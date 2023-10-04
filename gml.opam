@@ -7,7 +7,7 @@ homepage: "https://github.com/smuller/gml-checker"
 bug-reports: "https://github.com/smuller/gml-checker/issues"
 depends: [
   "dune" {>= "2.9"}
-  "ocaml" {= "4.14.2"}
+  "ocaml" {= "4.14.0"}
   "menhir"
   "ppx_deriving"
   "odoc" {with-doc}

@@ -4,7 +4,7 @@ MAKEFLAGS += --silent
 init:
 	echo Creating gml switch...
 	rm -rf _opam
-	opam switch create . 4.14.2+trunk -y
+	opam switch create . 4.14.0 -y
 	eval $(opam env --switch=. --set-switch)
 
 	echo Installing dependencies...
@@ -24,4 +24,5 @@ init:
 clean:
 	rm -rf ./_build
 	rm -rf ./_opam
+	rm gml.install
 

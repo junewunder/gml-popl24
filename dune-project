@@ -11,7 +11,7 @@
  (name gml)
  (synopsis "the gml typechecker")
  (depends
-  (ocaml (= 4.14.2))
+  (ocaml (= 4.14.0))
   menhir
   ppx_deriving)
  (depopts
