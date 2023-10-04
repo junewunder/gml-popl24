@@ -1,6 +1,6 @@
 dune build
 
-echo This script runs all files in paper-examples, examples, and testcases with output sent to /dev/null
+echo This script runs all files in paper-examples and testcases with output sent to /dev/null
 
 for file in paper-examples/*; do
   printf "running $file..."
