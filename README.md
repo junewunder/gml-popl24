@@ -31,7 +31,7 @@ What to expect:
 
 ### Output visualizations for paper examples
 
-*Note:* Visualizing the examples requires installing [GraphViz][https://graphviz.org/]
+*Note:* Visualizing the examples requires installing [GraphViz][graphviz]
 
 The `paper-examples` folder contains code for the examples contained in the
 paper. To output the graph visualization for every paper example,
@@ -105,3 +105,4 @@ gml [OPTIONS] file
 ```
 
   [opam]: https://opam.ocaml.org/doc/install.html
+  [graphviz]: https://graphviz.org/
