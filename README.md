@@ -9,42 +9,75 @@ Follow the instructions on [the OPAM website][opam].
 ## Install dependencies
 
 Run `make`.  This creates an OPAM switch called "gml", installs all
-dependencies, updates your environment, builds the project, and runs the
-`fib.ml` examples.
+dependencies, updates your environment, and builds the project.
+
+After running this command, run `eval $(opam env --switch=. --set-switch)` to
+finish setting up the environment.
+**NOTE:** This command sets up the environment only in the current shell;
+you will need to re-run this command any time you open a new shell.
 
 ## Running examples
 
-Run your example with the following command
-```
-dune exec -- gml paper-examples/map.ml
-```
+### Run test cases
 
-In the event of an error with the checker, enable ocaml stack traces using:
-```
-OCAMLRUNPARAM=b dune exec -- gml paper-examples/map.ml
-```
+To silently run all paper examples and testcases, run `make test`
+(or alternatively `tests.sh`).
 
-To silently run all paper examples and testcases, run `tests.sh`.
-what to expect:
+What to expect:
  - runs every file in the `paper-examples` and `testcases` folder
- - for every file, `running <file>... success`
+ - for every file, prints `running <file>... success`
  - if "success", then the checker passed the test without erroring -- note that this does not indicate correctness of the inferred graph type
  - if "failure", the checker encountered an error somewhere during checking
 
-To interactively run each example, use `tests-interactive.sh`. This will wait for user input after each example is ran.
-what to expect:
+### Output visualizations for paper examples
+
+*Note:* Visualizing the examples requires installing [GraphViz][https://graphviz.org/]
+
+The `paper-examples` folder contains code for the examples contained in the
+paper. To output the graph visualization for every paper example,
+run `make vis`.
+
+What to expect:
+ - silently runs `gml on every file in the `paper-examples` and `testcases` folder
+ - for `paper-examples/EXAMPLE.ml`, outputs a visualization of the main program's
+   graph type in `paper-examples/EXAMPLE.dot`
+ - runs GraphViz (if installed) to output the visualization as
+   `paper-examples/EXAMPLE.pdf`
+ - deletes `paper-examples/EXAMPLE.dot`
+
+TODO: put a table here matching paper-examples to figure numbers in the text
+
+### Run test cases interactively (optional)
+
+To interactively run each example, use `tests-interactive.sh`.
+This will wait for user input after each example is run.
+
+What to expect:
  - for every file in the `paper-examples` and `testcases` folder:
- - print the name of the file being ran
+ - print the name of the file being run
  - print the program to the terminal
  - runs the checker, printing the outputted graph types from the program
  - waits for the user to press the enter button
 
-To output the graph visualization for every paper-example, run `make vis`
-what to expect:
- - for every file in the `paper-examples` and `testcases` folder:
- - run the graph checker silently
- - output the programs' .dot files
- - compile these to pdf with `dot`
+### Run individual examples
+
+Run your example with the following command
+```
+dune exec -- gml <gml file>
+```
+
+See "Command line options" below for more usage information on the command.
+
+In the event of an error with the checker, enable OCaml stack traces using:
+```
+OCAMLRUNPARAM=b dune exec -- gml <gml file>
+```
+
+
+
+
+
+
 
 ## Command line options
 
