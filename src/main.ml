@@ -169,7 +169,7 @@ let print_timers out =
     Printf.fprintf out "Time for %s:\t%.2fms\n" s !timer
   in
   print_timer "type inference" tinf_timer;
-  print_timer "graph type inference" ginf_timer;
+  print_timer "graph type inference" ginf_timer
 
 let _ = Format.fprintf Format.std_formatter "\n"
 
