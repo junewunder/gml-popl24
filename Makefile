@@ -32,7 +32,7 @@ test: _build
 paper-examples/%: _build
 	echo "Running $@.ml"
 	dune exec -- gml -nt -z $@.dot $@.ml
-	dot -Tpng $@.dot > $@.pdf || (echo "dot failed. Make sure GraphViz is installed"; exit 1)
+	dot -Tpng $@.dot > $@.png || (echo "dot failed. Make sure GraphViz is installed"; exit 1)
 	rm $@.dot
 
 vis: $(PAPER_EXAMPLES)
