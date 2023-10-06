@@ -45,7 +45,15 @@ What to expect:
    `paper-examples/EXAMPLE.pdf`
  - deletes `paper-examples/EXAMPLE.dot`
 
-TODO: put a table here matching paper-examples to figure numbers in the text
+| figure # | paper-examples file        |
+|----------|----------------------------|
+| Fig 1.   | list_pi.ml, pipeline_pi.ml |
+| Fig 28.  | blellochproduce.ml         |
+| Fig 29.  | tree.ml                    |
+|          |                            |
+|          |                            |
+|          |                            |
+|          |                            |
 
 ### Run test cases interactively (optional)
 
