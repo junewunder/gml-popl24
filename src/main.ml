@@ -14,23 +14,16 @@ let fname = ref ""
 let timing = ref false
 let ifile = ref ""
 (* Analysis options *)
-let fj = ref false
-let deadlock = ref false
-let ws = ref false
 let vis = ref false
 let vis_out = ref ""
 let func = ref ""
 let notypes = ref false
 let print_sizes = ref false
 
-let dl_example = ref None
-
 (* Timers *)
 let tinf_timer = ref 0.0
 let ginf_timer = ref 0.0
-let fj_timer = ref 0.0
 let dl_timer = ref 0.0
-let ws_timer = ref 0.0
 
 let _ = message "\n"
 
@@ -46,16 +39,6 @@ let optspecs =
    ("--intf", Arg.Set_string ifile, "File to output inferred types");
    ("-s", Arg.Set print_sizes, "Print AST sizes of graph types");
    ("--sizes", Arg.Set print_sizes, "Print AST sizes of graph types");
-   (*
-   ("-fj", Arg.Set fj, "Convert to fork-join");
-   ("--forkjoin", Arg.Set fj, "Convert to fork-join");
-    *)
-   ("-d", Arg.Set deadlock, "Run deadlock detection");
-   ("--deadlock", Arg.Set deadlock, "Run deadlock detection");
-   (*
-   ("-ws", Arg.Set ws, "Run work-span analysis");
-   ("--workspan", Arg.Set ws, "Run work-span analysis");
-    *)
    ("-z", Arg.String do_vis, "Output DOT visualization");
    ("--dump-dot", Arg.String do_vis, "Output DOT visualization");
    ("-f", Arg.Set_string func, "Top-level binding to analyze; if unspecified, analyze whole program");
@@ -64,9 +47,6 @@ let optspecs =
    ("--verbose", Arg.Set verbose, "Print debugging output");
    ("-nt", Arg.Set notypes, "Supress output of type information");
    ("--no-types", Arg.Set notypes, "Supress output of type information");
-
-   ("--dl-ex", Arg.Int (fun i -> dl_example := Some i),
-    "Process hardcoded deadlock example #")
   ]
 
 let infile_fun f =
@@ -75,11 +55,6 @@ let infile_fun f =
     raise (Arg.Bad "Wrong number of arguments.")
 
 let _ = Arg.parse optspecs infile_fun usage_msg
-let _ =
-  if !fname = "" && !dl_example = None then
-    (Arg.usage optspecs usage_msg;
-     failwith "ERROR: no input program supplied.")
-
 
 (* Run f arg and record the execution time in milliseconds in timer *)
 let with_timer timer f arg =
@@ -194,10 +169,7 @@ let print_timers out =
     Printf.fprintf out "Time for %s:\t%.2fms\n" s !timer
   in
   print_timer "type inference" tinf_timer;
-  print_timer "graph type inference" ginf_timer;
-  (if !deadlock then print_timer "deadlock detection" dl_timer);
-  (if !ws then print_timer "work-span estimate" ws_timer);
-  (if !fj then print_timer "forj-join conversion" fj_timer)
+  print_timer "graph type inference" ginf_timer
 
 let _ = Format.fprintf Format.std_formatter "\n"
 
@@ -280,7 +252,7 @@ let _ =
       else
         find_decl_by_id !func c_prog
     in
-    (visualize 3 file d;
+    (visualize 4 file d;
      log "Finished visualization")
 
 let _ = if !timing then print_timers stdout

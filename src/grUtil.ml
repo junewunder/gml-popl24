@@ -3,9 +3,7 @@ open AstPrint
 open Visitor
 module UF = UnionFind
 
-(* TODO: make Ctx's use longid's instead of strings *)
 module GrCtx = Map.Make (String)
-(* TODO: TyCtx should be over g_typs *)
 module TyCtx = Map.Make (String)
 module VSUTCtx = Map.Make (Int)
 module VSCtx = Map.Make (

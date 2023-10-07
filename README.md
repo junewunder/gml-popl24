@@ -1,6 +1,24 @@
 # gml checker (graph meta language)
 
-To run the artifact, follow these steps.
+## Claims made in paper
+
+TODO
+
+## Download and installation instructions
+
+**Option 1:** Download the VM image located at LINK. The image already has
+all dependencies installed, and the code pre-built. You can skip to
+"Evaluation instructions" below (unless you wish to rebuild the artifact code,
+in which case you can proceed with "Install dependencies" below).
+
+The VM image has been tested on VirtualBox 7.0, but should be widely compatible.
+
+**Option 2:** 
+DOWNLOAD instructions
+
+SYSTEMS TESTED
+
+Navigate to the `gml-popl24` directory and follow these steps:
 
 ## Install and set up OPAM
 
@@ -8,7 +26,7 @@ Follow the instructions on [the OPAM website][opam].
 
 ## Install dependencies
 
-Run `make`.  This creates an OPAM switch called "gml", installs all
+Run `make`.  This creates a local opam switch, installs all
 dependencies, updates your environment, and builds the project.
 
 After running this command, run `eval $(opam env --switch=. --set-switch)` to
@@ -16,7 +34,14 @@ finish setting up the environment.
 **NOTE:** This command sets up the environment only in the current shell;
 you will need to re-run this command any time you open a new shell.
 
-## Running examples
+To reproduce the figures from the paper, you will also need to install
+[GraphViz][graphviz] (if testing on your own machine; GraphViz is already
+installed on the VM image).
+
+The test cases under "Run test cases" below serve as a good sanity check that
+the artifact has built correctly.
+
+## Evaluation instructions
 
 ### Run test cases
 
@@ -38,14 +63,24 @@ paper. To output the graph visualization for every paper example,
 run `make vis`.
 
 What to expect:
- - silently runs `gml on every file in the `paper-examples` and `testcases` folder
+ - silently runs `gml` on every file in the `paper-examples` and `testcases` folder
  - for `paper-examples/EXAMPLE.ml`, outputs a visualization of the main program's
    graph type in `paper-examples/EXAMPLE.dot`
  - runs GraphViz (if installed) to output the visualization as
    `paper-examples/EXAMPLE.pdf`
  - deletes `paper-examples/EXAMPLE.dot`
 
-TODO: put a table here matching paper-examples to figure numbers in the text
+| figure # | paper-examples file        |
+|----------|----------------------------|
+| Fig 1.   | list_pi.ml, pipeline_pi.ml |
+| Fig 28.  | blellochproduce.ml         |
+| Fig 29.  | tree.ml                    |
+|          |                            |
+|          |                            |
+|          |                            |
+|          |                            |
+
+TODO: Maybe move some of this to "Additional information"
 
 ### Run test cases interactively (optional)
 
@@ -72,14 +107,18 @@ In the event of an error with the checker, enable OCaml stack traces using:
 ```
 OCAMLRUNPARAM=b dune exec -- gml <gml file>
 ```
+## Additional information
 
+### Visualizing your own programs
 
+If you would like to write your own GML program and output the visualization for it then run the following commands:
+```
+dune exec -- gml -nt -z program.dot program.ml
+dot -Tpng program.dot > program.png
+open program.png
+```
 
-
-
-
-
-## Command line options
+### Command line options
 
 ```
 gml [OPTIONS] file
@@ -89,8 +128,6 @@ gml [OPTIONS] file
   --intf File to output inferred types
   -s Print AST sizes of graph types
   --sizes Print AST sizes of graph types
-  -d Run deadlock detection
-  --deadlock Run deadlock detection
   -z Output DOT visualization
   --dump-dot Output DOT visualization
   -f Top-level binding to analyze; if unspecified, analyze whole program
@@ -99,7 +136,6 @@ gml [OPTIONS] file
   --verbose Print debugging output
   -nt Supress output of type information
   --no-types Supress output of type information
-  --dl-ex Process hardcoded deadlock example #
   -help  Display this list of options
   --help  Display this list of options
 ```

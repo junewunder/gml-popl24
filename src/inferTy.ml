@@ -4,7 +4,6 @@ open Vertex *)
 open Visitor
 open AstPrint
 
-(* TODO: make Ctx's use longid's instead of strings *)
 module Ctx = Map.Make (String)
 
 module Subst = Map.Make (Int)
@@ -637,7 +636,6 @@ and [@warning "-8"] [@warning "-9"] [@warning "-5"] tycheck_match cond cases e =
   pprint pprint_t_expr cond_annot;
 
   let check_case (constructor, vars, case_body) =
-    (* TODO: we are missing typechecking information here that should be passed through to grcheck *)
     let schema = Ctx.find (string_of_longid constructor) con_ctx in
     message ("constructor schema " ^ string_of_longid constructor);
     pprint pprint_t_schema schema;

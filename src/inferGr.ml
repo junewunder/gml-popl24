@@ -784,7 +784,7 @@ and grcheck_let x t bound body e =
   in
   let gr = GSeq (bound_gr, body_gr) in
   let* e' = rebuild e (ELet (x, t, bound_annot, body_annot)) gr body_annot.etyp in
-  let gr_subst = overwrite_gr_subst body_gr_subst bound_gr_subst in (* TODO: should this be unify? *)
+  let gr_subst = overwrite_gr_subst body_gr_subst bound_gr_subst in
   let vs_subst = overwrite_vs_subst body_vs_subst bound_vs_subst in
   return (gr, gr_subst, vs_subst, e')
 
@@ -794,10 +794,7 @@ and [@warning "-8"] [@warning "-9"] [@warning "-5"] grcheck_match scrutinee case
     = grcheck scrutinee in
 
   let check_case (constructor, vars, check_body) =
-    (* TODO: we are missing typechecking information here that should be passed through to grcheck *)
     let* schema = get_con_schema (string_of_longid constructor) in
-    (* message ("constructor schema" ^ string_of_longid constructor);
-    pprint pprint_g_schema schema; *)
     let rec unify_ty_vars t1 t2 =
       match t1.tdesc, t2.tdesc with
       | TVar x, _ -> return [(x, t2)]

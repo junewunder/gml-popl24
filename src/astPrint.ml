@@ -135,7 +135,7 @@ let rec pprint_typ (e1, e2, g, vv, v, vp) f t =
         | ts -> fprintf f "(%a) " (seq ppt ", ") ts
       );
       fprintf f "%s" (string_of_longid tname);
-      fprintf f "[%a]" v u (* TODO I WOULD REALLY LIKE THIS TO NOT PRINT ANYTHING IF u IS EMPTY*)
+      fprintf f "[%a]" v u
 
 let rec pprint_schema (e1, e2, g, vv, v, vp) f s =
   match s with
