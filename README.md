@@ -9,7 +9,7 @@ TODO
 **Option 1:** Download the VM image located at LINK. The image already has
 all dependencies installed, and the code pre-built. You can skip to
 "Evaluation instructions" below (unless you wish to rebuild the artifact code,
-in which case you can proceed with "Install dependencies" below).
+in which case you can proceed with "Install remaining dependencies and build artifact" below).
 
 The VM image has been tested on VirtualBox 7.0, but should be widely compatible.
 
@@ -20,11 +20,18 @@ SYSTEMS TESTED
 
 Navigate to the `gml-popl24` directory and follow these steps:
 
-## Install and set up OPAM
+### Necessary dependencies
 
-Follow the instructions on [the OPAM website][opam].
+The following need to be installed before proceeding to build the artifact:
 
-## Install dependencies
+* [OPAM][opam] >= 2.1.
+* [GraphViz][graphviz] (only needed for reproducing the figures from the paper)
+
+All other dependencies will be installed by our build script.
+
+Suitable versions of these are pre-installed on the VM image.
+
+### Install remaining dependencies and build artifact
 
 Run `make`.  This creates a local opam switch, installs all
 dependencies, updates your environment, and builds the project.
@@ -111,6 +118,10 @@ In the event of an error with the checker, enable OCaml stack traces using:
 OCAMLRUNPARAM=b dune exec -- gml <gml file>
 ```
 ## Additional information
+
+### File structure
+
+TODO
 
 ### Visualizing your own programs
 
