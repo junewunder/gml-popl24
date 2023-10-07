@@ -43,6 +43,9 @@ the artifact has built correctly.
 
 ## Evaluation instructions
 
+All commands should be run from within the `gml-popl24` directory.
+In the VM image, this is `~/gml-popl24`.
+
 ### Run test cases
 
 To silently run all paper examples and testcases, run `make test`
