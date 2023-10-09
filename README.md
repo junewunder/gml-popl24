@@ -71,7 +71,10 @@ To silently run all paper examples and testcases, run `make test`
 The code should:
  - run the GMLμ checker on every file in the `paper-examples` and `testcases` folder
  - for every file, print `running <file>... success`
- - if the test prints "success", this means that the checker passed the test without erroring -- note that this does not indicate correctness of the inferred graph type
+ - if the test prints "success", this means that the checker ran on the test
+   without errors. The inferred types are stored in `<file>.out`. You can check
+   the contents of each file to verify that they match the types reported in the
+   paper.
  - if the test prints "failure", this means that the checker encountered an error somewhere during checking
 
 ### Output visualizations for paper examples

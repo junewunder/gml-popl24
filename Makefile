@@ -41,3 +41,7 @@ vis: $(PAPER_EXAMPLES)
 clean:
 	rm -rf ./_build
 	rm -rf ./_opam
+	rm -f paper-examples/*.out
+	rm -f paper-examples/*.png
+	rm -f testcases/*.out
+	rm -f testcases/*.png
