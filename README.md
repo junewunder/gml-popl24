@@ -12,6 +12,7 @@ TODO
 This artifact is known to run on the following environments:
 
 - Ubuntu 20.04.6 LTS running on an Intel i7 with 15.2 GiB of RAM
+- macOS 13.4.1 on M1 macbook pro with 16GB or RAM
 
 ## Download and installation instructions
 
@@ -96,10 +97,6 @@ The code should:
 | Fig 1.   | `list_pi.ml`, `pipeline_pi.ml` |
 | Fig 28.  | `blellochproduce.ml`           |
 | Fig 29.  | `tree.ml`                      |
-|          |                                |
-|          |                                |
-|          |                                |
-|          |                                |
 
 TODO: Maybe move some of this to "Additional information"
 
