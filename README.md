@@ -1,43 +1,50 @@
-# gml checker (graph meta language)
+# GMLμ checker (Graph Meta Language)
+
+This artifact accompanies the paper "Pipelines and Beyond: Graph Types for ADTs
+with Futures", submitted to POPL 2024.  It implements an engine to infer vertex
+structure annotations and graph types for a subset of OCaml, following the
+language and the type system presented in the paper.
 
 ## Claims made in paper
 
 TODO
 
+This artifact is known to run on the following environments:
+
+- Ubuntu 20.04.6 LTS running on an Intel i7 with 15.2 GiB of RAM
+
 ## Download and installation instructions
 
-**Option 1:** Download the VM image located at LINK. The image already has
-all dependencies installed, and the code pre-built. You can skip to
-"Evaluation instructions" below (unless you wish to rebuild the artifact code,
-in which case you can proceed with "Install remaining dependencies and build artifact" below).
+**Option 1:** Download the VM image located [here][vm]. The image already has
+all dependencies installed, and the code pre-built. You can skip to "Evaluation
+instructions" below (unless you wish to rebuild the artifact code, in which case
+you can proceed with "Install remaining dependencies and build artifact" below).
 
 The VM image has been tested on VirtualBox 7.0, but should be widely compatible.
 
-**Option 2:** 
+**Option 2:** Build the source code yourself. Navigate to the `gml-popl24`
+directory and follow these steps:
+
 DOWNLOAD instructions
-
-SYSTEMS TESTED
-
-Navigate to the `gml-popl24` directory and follow these steps:
 
 ### Necessary dependencies
 
-The following need to be installed before proceeding to build the artifact:
+The following need to be installed before building the artifact:
 
-* [OPAM][opam] >= 2.1.
+* [The OPAM package manager][opam] >= 2.1.
 * [GraphViz][graphviz] (only needed for reproducing the figures from the paper)
 
-All other dependencies will be installed by our build script.
+All other dependencies will be installed locally by our build script.
 
 Suitable versions of these are pre-installed on the VM image.
 
 ### Install remaining dependencies and build artifact
 
-Run `make`.  This creates a local opam switch, installs all
-dependencies, updates your environment, and builds the project.
+Run `make`.  This creates a local opam switch, installs all dependencies, sets
+up your shell environment, and compiles the GMLμ checker.
 
 After running this command, run `eval $(opam env --switch=. --set-switch)` to
-finish setting up the environment.
+finish setting up the shell environment.
 **NOTE:** This command sets up the environment only in the current shell;
 you will need to re-run this command any time you open a new shell.
 
@@ -58,11 +65,13 @@ In the VM image, this is `~/gml-popl24`.
 To silently run all paper examples and testcases, run `make test`
 (or alternatively `tests.sh`).
 
-What to expect:
- - runs every file in the `paper-examples` and `testcases` folder
- - for every file, prints `running <file>... success`
- - if "success", then the checker passed the test without erroring -- note that this does not indicate correctness of the inferred graph type
- - if "failure", the checker encountered an error somewhere during checking
+#### Expected behavior
+
+The code should:
+ - run the GMLμ checker on every file in the `paper-examples` and `testcases` folder
+ - for every file, print `running <file>... success`
+ - if the test prints "success", this means that the checker passed the test without erroring -- note that this does not indicate correctness of the inferred graph type
+ - if the test prints "failure", this means that the checker encountered an error somewhere during checking
 
 ### Output visualizations for paper examples
 
@@ -72,23 +81,25 @@ The `paper-examples` folder contains code for the examples contained in the
 paper. To output the graph visualization for every paper example,
 run `make vis`.
 
-What to expect:
- - silently runs `gml` on every file in the `paper-examples` and `testcases` folder
- - for `paper-examples/EXAMPLE.ml`, outputs a visualization of the main program's
-   graph type in `paper-examples/EXAMPLE.dot`
- - runs GraphViz (if installed) to output the visualization as
-   `paper-examples/EXAMPLE.pdf`
- - deletes `paper-examples/EXAMPLE.dot`
+#### Expected behavior
 
-| figure # | paper-examples file        |
-|----------|----------------------------|
-| Fig 1.   | list_pi.ml, pipeline_pi.ml |
-| Fig 28.  | blellochproduce.ml         |
-| Fig 29.  | tree.ml                    |
-|          |                            |
-|          |                            |
-|          |                            |
-|          |                            |
+The code should:
+ - silently run `gml` on every file in the `paper-examples` and `testcases` folders
+ - for `paper-examples/EXAMPLE.ml`, output a visualization of the main program's
+   graph type in `paper-examples/EXAMPLE.dot`
+ - run GraphViz (if installed) to output the visualization as
+   `paper-examples/EXAMPLE.pdf`
+ - delete `paper-examples/EXAMPLE.dot`
+
+| figure # | paper-examples file            |
+|----------|--------------------------------|
+| Fig 1.   | `list_pi.ml`, `pipeline_pi.ml` |
+| Fig 28.  | `blellochproduce.ml`           |
+| Fig 29.  | `tree.ml`                      |
+|          |                                |
+|          |                                |
+|          |                                |
+|          |                                |
 
 TODO: Maybe move some of this to "Additional information"
 
@@ -97,16 +108,17 @@ TODO: Maybe move some of this to "Additional information"
 To interactively run each example, use `tests-interactive.sh`.
 This will wait for user input after each example is run.
 
-What to expect:
- - for every file in the `paper-examples` and `testcases` folder:
- - print the name of the file being run
- - print the program to the terminal
- - runs the checker, printing the outputted graph types from the program
- - waits for the user to press the enter button
+#### Expected behavior
+
+The code should, for every file in the `paper-examples` and `testcases` folder:
+  - print the name of the file being checked
+  - print the program to the terminal
+  - run the checker, printing the output graph types from the program
+  - wait for the user to press the enter button
 
 ### Run individual examples
 
-Run your example with the following command
+You can check individual examples with the following command
 ```
 dune exec -- gml <gml file>
 ```
@@ -156,3 +168,4 @@ gml [OPTIONS] file
 
   [opam]: https://opam.ocaml.org/doc/install.html
   [graphviz]: https://graphviz.org/
+  [vm]: MISSING LINK
