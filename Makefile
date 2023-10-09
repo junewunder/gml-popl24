@@ -7,7 +7,7 @@ build: _build
 
 _build: _opam
 	echo Building project...
-	eval $(opam env --switch=. --set-switch) && dune build
+	./run-in-opam-switch "dune build"
 
 	echo Done.
 	echo Run "eval \$$(opam env --switch=. --set-switch)" to set up your current shell environment
@@ -27,11 +27,11 @@ _opam:
 	eval $(opam env --switch=. --set-switch)
 
 test: _build
-	eval $(opam env --switch=. --set-switch) && ./tests.sh
+	./run-in-opam-switch ./tests.sh
 
 paper-examples/%: _build
 	echo "Running $@.ml"
-	eval $(opam env --switch=. --set-switch) && dune exec -- gml -nt -z $@.dot $@.ml
+	./run-in-opam-switch 'dune exec -- gml -nt -z $@.dot $@.ml'
 	dot -Tpng $@.dot > $@.png || (echo "dot failed. Make sure GraphViz is installed"; exit 1)
 	rm $@.dot
 
