@@ -12,7 +12,7 @@ TODO
 This artifact is known to run on the following environments:
 
 - Ubuntu 20.04.6 LTS running on an Intel i7 with 15.2 GiB of RAM
-- macOS 13.4.1 on M1 macbook pro with 16GB or RAM
+- macOS 13.4.1 on M1 macbook pro with 16GB of RAM
 
 ## Download and installation instructions
 
