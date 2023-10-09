@@ -2,7 +2,7 @@ dune build
 
 echo This script runs all files in paper-examples and testcases with output sent to /dev/null
 
-for file in paper-examples/*; do
+for file in paper-examples/*.ml; do
   printf "running $file..."
   _build/default/src/main.exe $file &> /dev/null
   if [ $? -eq 0 ]; then
@@ -12,7 +12,7 @@ for file in paper-examples/*; do
   fi
 done
 
-for file in testcases/*; do
+for file in testcases/*.ml; do
   printf "running $file..."
   _build/default/src/main.exe $file &> /dev/null
   if [ $? -eq 0 ]; then
