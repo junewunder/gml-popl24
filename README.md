@@ -147,14 +147,17 @@ The code should, for every file in the `paper-examples` and `testcases` folder:
 
 ### File structure
 
-The subdirectories of the artifact are listed below:
+The files and subdirectories of the artifact are listed below:
 
-| Directory        | Purpose                                          |
-|------------------|--------------------------------------------------|
-| `expected_out`   | Expected outputs of `make test`                  |
-| `paper-examples` | Source code for examples included in the paper   |
-| `src`            | Source code for GMLμ                             |
-| `testcases`      | Code for additional examples used for testing    |
+| File/Directory         | Purpose                                          |
+|------------------------|--------------------------------------------------|
+| `expected_out`         | Expected outputs of `make test`                  |
+| `paper-examples`       | Source code for examples included in the paper   |
+| `src`                  | Source code for GMLμ                             |
+| `testcases`            | Code for additional examples used for testing    |
+| `README.md`            | This file                                        |
+| `tests.sh`             | Run all test cases (also invoked by `make test`) |
+| `tests-interactive.sh` | Run test cases interactively                     |
 
 Important source code files are described below:
 
