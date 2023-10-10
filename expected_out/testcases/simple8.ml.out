@@ -1,0 +1,13 @@
+
+f : pi u8 : (corec t1. [◆ × t1]), u7 : (corec t1. [◆ × t1]).
+      (myintfutlist[u7]
+      --((rec g1.
+           (pi u8 : (corec t1. [◆ × t1]), u7 : (corec t1. [◆ × 
+             t1]). (• \/ (g1)[u8, u7.1]))))
+        [u8, u7]-->
+      myintfutlist[(u7.0, (u7.1.0, u8))]) | ((rec g1.
+                                               (pi u8 : (corec t1. [◆ × 
+                                                 t1]), u7 : (corec t1. [
+                                                 ◆ × t1]).
+                                                 (• \/ (g1)[u8, u7.1]))))
+                                            [u8, u7]

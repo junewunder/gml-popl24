@@ -1,0 +1,12 @@
+
+touch_fut_list : 'a. pi u8 : [], u7 : (corec t1. [◆ × t1]).
+                       ('a futlist[u7]
+                       --((rec g1.
+                            (pi u8 : [], u7 : (corec t1. [◆ × t1]).
+                              (• \/ (u7.0-> + (g1)[(), u7.1])))))
+                         [u8, u7]-->
+                       'a list[()]) | ((rec g1.
+                                         (pi u8 : [], u7 : (corec t1. [
+                                           ◆ × t1]).
+                                           (• \/ (u7.0-> + (g1)[(), u7.1])))))
+                                      [u8, u7]

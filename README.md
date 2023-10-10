@@ -26,21 +26,14 @@ We claim that GMLμ can handle, and produce visualizations for,
 
 ## Download and installation instructions
 
-We support two ways to evaluate the artifact. The first is to use a VM image
-with the artifact pre-built. The second is to build and run it natively
-on a Unix system. This artifact is known to run on the following environments:
+The artifact is intended to be built and run on a Unix system or VM, but
+will also likely work on [WSL][wsl].
+This artifact is known to run on the following environments:
 
 - Ubuntu 20.04.6 LTS running on an Intel i7 with 15.2 GiB of RAM
 - macOS 13.4.1 on M1 macbook pro with 16GB of RAM
 
-**Option 1:** Download the VM image located [here][vm]. The image already has
-all dependencies installed, and the code pre-built. You can skip to "Evaluation
-instructions" below (unless you wish to rebuild the artifact code, in which case
-you can proceed with "Install remaining dependencies and build artifact" below).
-
-The VM image has been tested on VirtualBox 7.0, but should be widely compatible.
-
-**Option 2:** Download the tarball located [here][tarball]. Untar it using, e.g.
+Download the tarball from Zenodo. Untar it using, e.g.
 
     tar -xvf gml-popl24
 
@@ -56,14 +49,13 @@ The following need to be installed before building the artifact:
 
 All other dependencies will be installed locally by our build script.
 
-Suitable versions of these are pre-installed on the VM image.
-
 ### Install remaining dependencies and build artifact
 
 Run `make`.  This creates a local opam switch, installs all dependencies, sets
 up your shell environment, and compiles the GMLμ checker. (**NOTE:** The
 compilation process might issue some warnings when compiling the GMLμ
-parser. You can safely ignore those.)
+parser. You can safely ignore those.) The first time you run it, this process
+will take several minutes.
 
 After running this command, run `eval $(opam env --switch=. --set-switch)` to
 finish setting up the shell environment.
@@ -76,7 +68,6 @@ the artifact has built correctly.
 ## Evaluation instructions
 
 All commands should be run from within the `gml-popl24` directory.
-In the VM image, this is `~/gml-popl24`.
 
 ### Run test cases
 
@@ -219,4 +210,4 @@ gml [OPTIONS] file
 
   [opam]: https://opam.ocaml.org/doc/install.html
   [graphviz]: https://graphviz.org/
-  [vm]: MISSING LINK
+  [wsl]: https://learn.microsoft.com/en-us/windows/wsl/install

@@ -1,0 +1,6 @@
+
+f : pi u8 : [], u7 : (corec t1. []). (ab[u7]
+      --((rec g1. (pi u8 : [], u7 : (corec t1. []). (• \/ •))))[u8, u7]-->
+      string[()]) | ((rec g1.
+                       (pi u8 : [], u7 : (corec t1. []). (• \/ •))))
+                    [u8, u7]
