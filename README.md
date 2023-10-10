@@ -61,7 +61,9 @@ Suitable versions of these are pre-installed on the VM image.
 ### Install remaining dependencies and build artifact
 
 Run `make`.  This creates a local opam switch, installs all dependencies, sets
-up your shell environment, and compiles the GMLμ checker.
+up your shell environment, and compiles the GMLμ checker. (**NOTE:** The
+compilation process might issue some warnings when compiling the GMLμ
+parser. You can safely ignore those.)
 
 After running this command, run `eval $(opam env --switch=. --set-switch)` to
 finish setting up the shell environment.
