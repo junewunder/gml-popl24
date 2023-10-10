@@ -1,9 +1,9 @@
 # GMLμ checker (Graph Meta Language)
 
 This artifact accompanies the paper "Pipelines and Beyond: Graph Types for ADTs
-with Futures", submitted to POPL 2024.  It implements an engine to infer vertex
-structure annotations and graph types for a subset of OCaml, following the
-language and the type system presented in the paper.
+with Futures", which is conditionally accepted to POPL 2024.  It implements an
+engine to infer vertex structure annotations and graph types for a subset of
+OCaml, following the language and the type system presented in the paper.
 
 ## Claims made in paper
 
