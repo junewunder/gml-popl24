@@ -1499,7 +1499,7 @@ let finalize_graph g =
       finalize_vs_typ
       g
   in
-  let g = rewrite_gr g in
+  (* let g = rewrite_gr g in *)
   return g
 
 let rec external_to_g_typ (ty : t_typ) : g_typ grchecker =

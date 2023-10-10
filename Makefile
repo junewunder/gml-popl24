@@ -1,6 +1,6 @@
 MAKEFLAGS += --silent
 
-PAPER_EXAMPLES = paper-examples/blellochproduce paper-examples/list_pi paper-examples/map paper-examples/pipeline_pi paper-examples/pipeline_pi_full paper-examples/qsort paper-examples/tree
+PAPER_EXAMPLES = paper-examples/blellochproduce paper-examples/list_pi paper-examples/pipeline_pi paper-examples/pipeline_pi_full paper-examples/tree-rev paper-examples/tree
 
 .PHONY: build
 build: _build
@@ -31,9 +31,12 @@ test: _build
 
 paper-examples/%: _build
 	echo "Running $@.ml"
-	./run-in-opam-switch 'dune exec -- gml -nt -z $@.dot $@.ml'
-	dot -Tpng $@.dot > $@.png || (echo "dot failed. Make sure GraphViz is installed"; exit 1)
-	rm $@.dot
+	./run-in-opam-switch 'dune exec -- gml -nt -u 3 -z $@-3.dot $@.ml'
+	./run-in-opam-switch 'dune exec -- gml -nt -u 6 -z $@-6.dot $@.ml'
+	dot -Tpng $@-3.dot > $@-3.png || (echo "dot failed. Make sure GraphViz is installed"; exit 1)
+	dot -Tpng $@-6.dot > $@-6.png || (echo "dot failed. Make sure GraphViz is installed"; exit 1)
+	rm $@-3.dot
+	rm $@-6.dot
 
 vis: $(PAPER_EXAMPLES)
 	echo "PNG visualizations output to paper-examples/"

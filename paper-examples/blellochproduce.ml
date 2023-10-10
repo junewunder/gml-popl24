@@ -16,3 +16,4 @@ let rec consume sumxs =
 
 let sum n = consume (0, (produce n));;
 
+let _ = sum 10;;

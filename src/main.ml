@@ -16,6 +16,7 @@ let ifile = ref ""
 (* Analysis options *)
 let vis = ref false
 let vis_out = ref ""
+let norm_level = ref 3
 let func = ref ""
 let notypes = ref false
 let print_sizes = ref false
@@ -41,6 +42,8 @@ let optspecs =
    ("--sizes", Arg.Set print_sizes, "Print AST sizes of graph types");
    ("-z", Arg.String do_vis, "Output DOT visualization");
    ("--dump-dot", Arg.String do_vis, "Output DOT visualization");
+   ("-u", Arg.Set_int norm_level, "Number of times to normalize for visualization. Default: 3");
+   ("--unroll", Arg.Set_int norm_level, "Number of times to normalize for visualization. Default: 3");
    ("-f", Arg.Set_string func, "Top-level binding to analyze; if unspecified, analyze whole program");
    ("--func", Arg.Set_string func, "Top-level binding to analyze; if unspecified, analyze whole program");
    ("-v", Arg.Set verbose, "Print debugging output");
@@ -202,6 +205,7 @@ let c_prog, global_verts =
 let visualize exp out d =
   let g = graph_of_decl d in
   let g = Norm.expand_max exp g in
+  let g = rewrite_gr g in
   Dot.write out (Dot.of_graph (g))
 
 
@@ -218,8 +222,9 @@ let _ =
             (string_of_longid (var_of_decl d))
             pprint_c_schema d.dinfo
             pprint_c_graph
-            (match d.ddesc with
-             | DVal (_, _, e) | DExp e -> e.egr | _ -> GEmpty)
+            (rewrite_gr (match d.ddesc with
+                         | DVal (_, _, e) | DExp e -> e.egr | _ -> GEmpty)
+            )
       )
       c_prog
 (* Output sizes *)
@@ -252,7 +257,7 @@ let _ =
       else
         find_decl_by_id !func c_prog
     in
-    (visualize 4 file d;
+    (visualize !norm_level file d;
      log "Finished visualization")
 
 let _ = if !timing then print_timers stdout

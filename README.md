@@ -7,14 +7,31 @@ language and the type system presented in the paper.
 
 ## Claims made in paper
 
-TODO
+All of the claims concerning the artifact are in Section 6 of the paper,
+"Implementation and Examples". In this section, we claim that the
+implementation, called GMLμ, accepts ordinary, unannotated programs in a
+subset of OCaml extended with keywords `future` and `touch` for spawning and
+forcing futures, and annotates the program with graph types according to the
+type system of Section 3. GMLμ can output the inferred types of the program
+to the console, and can also produce a visualization of the graph type.
 
-This artifact is known to run on the following environments:
+We claim that GMLμ can handle, and produce visualizations for,
+
+* The pipelining example of Figures 1 and 2 (in Section 1)
+* The producer-consumer example of [Blelloch and Reid-Miller 1997] (Fig. 28)
+* Sum of a pipelined tree, also reminiscent of [Blelloch and Reid-Miller 1997]
+  (Fig. 29)
+* Reversal of the pipelined tree.
+
+
+## Download and installation instructions
+
+We support two ways to evaluate the artifact. The first is to use a VM image
+with the artifact pre-built. The second is to build and run it natively
+on a Unix system. This artifact is known to run on the following environments:
 
 - Ubuntu 20.04.6 LTS running on an Intel i7 with 15.2 GiB of RAM
 - macOS 13.4.1 on M1 macbook pro with 16GB of RAM
-
-## Download and installation instructions
 
 **Option 1:** Download the VM image located [here][vm]. The image already has
 all dependencies installed, and the code pre-built. You can skip to "Evaluation
@@ -23,10 +40,12 @@ you can proceed with "Install remaining dependencies and build artifact" below).
 
 The VM image has been tested on VirtualBox 7.0, but should be widely compatible.
 
-**Option 2:** Build the source code yourself. Navigate to the `gml-popl24`
-directory and follow these steps:
+**Option 2:** Download the tarball located [here][tarball]. Untar it using, e.g.
 
-DOWNLOAD instructions
+    tar -xvf gml-popl24
+
+This will extract the artifact to a new directory called `gml-popl24`.
+Navigate to this directory and follow these steps:
 
 ### Necessary dependencies
 
@@ -49,10 +68,6 @@ finish setting up the shell environment.
 **NOTE:** This command sets up the environment only in the current shell;
 you will need to re-run this command any time you open a new shell.
 
-To reproduce the figures from the paper, you will also need to install
-[GraphViz][graphviz] (if testing on your own machine; GraphViz is already
-installed on the VM image).
-
 The test cases under "Run test cases" below serve as a good sanity check that
 the artifact has built correctly.
 
@@ -72,9 +87,9 @@ The code should:
  - run the GMLμ checker on every file in the `paper-examples` and `testcases` folder
  - for every file, print `running <file>... success`
  - if the test prints "success", this means that the checker ran on the test
-   without errors. The inferred types are stored in `<file>.out`. You can check
-   the contents of each file to verify that they match the types reported in the
-   paper.
+   without errors. The inferred types are stored in `<file>.out`. For reference,
+   the expected outputs for all of the `paper-examples` and `testcases` are
+   provided in the respective subfolders of `expected_out`.
  - if the test prints "failure", this means that the checker encountered an error somewhere during checking
 
 ### Output visualizations for paper examples
@@ -85,23 +100,34 @@ The `paper-examples` folder contains code for the examples contained in the
 paper. To output the graph visualization for every paper example,
 run `make vis`.
 
+The visualization tool comes with a parameter, which is the number of times to
+unroll the graph type before visualizing. A higher number generates more of
+the graph, which can help in discerning the pattern more clearly, but also
+results in a larger, more cluttered visual. Our test script runs each
+visualization with two different values for this parameter, 3 and 6.
+
 #### Expected behavior
 
 The code should:
  - silently run `gml` on every file in the `paper-examples` and `testcases` folders
  - for `paper-examples/EXAMPLE.ml`, output a visualization of the main program's
-   graph type in `paper-examples/EXAMPLE.dot`
+   graph type in `paper-examples/EXAMPLE-{3, 6}.dot`
  - run GraphViz (if installed) to output the visualization as
-   `paper-examples/EXAMPLE.pdf`
- - delete `paper-examples/EXAMPLE.dot`
+   `paper-examples/EXAMPLE-{3, 6}.png`
+ - delete `paper-examples/EXAMPLE-{3, 6}.dot`
 
-| figure # | paper-examples file            |
-|----------|--------------------------------|
-| Fig 1.   | `list_pi.ml`, `pipeline_pi.ml` |
-| Fig 28.  | `blellochproduce.ml`           |
-| Fig 29.  | `tree.ml`                      |
+Four of the visualizations generated are included in the paper. The following
+table gives the visualization generated and where it appears in the paper.
 
-TODO: Maybe move some of this to "Additional information"
+| Figure/section # | `paper-examples` visual              |
+|------------------|--------------------------------------|
+| Fig 1.           | `list_pi-6.png`, `pipeline_pi-6.png` |
+| Fig 28.          | `blellochproduce-6.png`              |
+| Fig 29.          | `tree-3.png`                         |
+
+In addition, `tree-rev.ml` and its visualizations are mentioned in Section 6
+(under "Tree Reverse") but the visualizations are not included in the body
+of the paper.
 
 ### Run test cases interactively (optional)
 
@@ -116,11 +142,42 @@ The code should, for every file in the `paper-examples` and `testcases` folder:
   - run the checker, printing the output graph types from the program
   - wait for the user to press the enter button
 
+
+## Additional information
+
+### File structure
+
+The subdirectories of the artifact are listed below:
+
+| Directory        | Purpose                                          |
+|------------------|--------------------------------------------------|
+| `expected_out`   | Expected outputs of `make test`                  |
+| `paper-examples` | Source code for examples included in the paper   |
+| `src`            | Source code for GMLμ                             |
+| `testcases`      | Code for additional examples used for testing    |
+
+Important source code files are described below:
+
+* `ast.ml`: Abstract syntax tree definitions
+* `grUtil.ml`: Utility functions including context management,
+  substitution, and inference of vertex structure types (Section 5)
+* `inferGr.ml`: Main code for graph type inference
+* `inferTy.ml`: OCaml type inference; this runs as a separate pass before
+  graph type inference
+* `main.ml`: Parsing of command line arguments and driver functions
+
 ### Run individual examples
 
-You can check individual examples with the following command
+You can check individual examples (either those provided or your own)
+with the following command
 ```
 dune exec -- gml <gml file>
+```
+
+If you would like to output the visualization, you can run
+```
+dune exec -- gml -nt -z <output>.dot <gml file>.ml
+dot -Tpng <output>.dot > <output>.png
 ```
 
 See "Command line options" below for more usage information on the command.
@@ -129,20 +186,7 @@ In the event of an error with the checker, enable OCaml stack traces using:
 ```
 OCAMLRUNPARAM=b dune exec -- gml <gml file>
 ```
-## Additional information
 
-### File structure
-
-TODO
-
-### Visualizing your own programs
-
-If you would like to write your own GML program and output the visualization for it then run the following commands:
-```
-dune exec -- gml -nt -z program.dot program.ml
-dot -Tpng program.dot > program.png
-open program.png
-```
 
 ### Command line options
 
@@ -156,6 +200,8 @@ gml [OPTIONS] file
   --sizes Print AST sizes of graph types
   -z Output DOT visualization
   --dump-dot Output DOT visualization
+  -u Number of times to normalize for visualization. Default: 3
+  --unroll Number of times to normalize for visualization. Default: 3
   -f Top-level binding to analyze; if unspecified, analyze whole program
   --func Top-level binding to analyze; if unspecified, analyze whole program
   -v Print debugging output
