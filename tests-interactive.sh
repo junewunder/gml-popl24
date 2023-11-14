@@ -1,6 +1,6 @@
 dune build --release
 
-for file in paper-examples/*; do
+for file in paper-examples/*.ml; do
   clear
   echo running $file
   echo
@@ -10,7 +10,7 @@ for file in paper-examples/*; do
   read;
 done
 
-for file in testcases/*; do
+for file in testcases/*.ml; do
   clear
   echo running $file
   echo
